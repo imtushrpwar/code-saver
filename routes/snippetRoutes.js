@@ -8,5 +8,7 @@ router.get("/add", isAuthenticated, snippetController.showAdd);
 
 router.post("/add", isAuthenticated, snippetController.addSnippet);
 router.get("/delete/:id", isAuthenticated, snippetController.deleteSnippet);
+router.get("/edit/:id", snippetController.showEdit);
 
+router.post("/update/:id", snippetController.updateSnippet);
 module.exports = router;

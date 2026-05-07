@@ -2,7 +2,8 @@
 
 <style>
 /* GLOBAL */
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   background: radial-gradient(circle at top, #0f0c29, #050409);
@@ -13,9 +14,9 @@ html, body {
 
 /* WRAPPER */
 .dashboard-container {
-  padding: 120px 8% 60px;
   max-width: 1200px;
   margin: auto;
+  padding: 120px 20px 60px;
 }
 
 /* TOPBAR */
@@ -26,106 +27,274 @@ html, body {
   margin-bottom: 40px;
 }
 
-.topbar h5 {
-  font-size: 22px;
-  font-weight: 600;
+.topbar h4 {
   margin: 0;
+  font-weight: 600;
+  font-size: 24px;
 }
 
 /* ADD BUTTON */
 .btn-add {
   background: linear-gradient(135deg, #6366f1, #7c3aed);
-  padding: 8px 18px;
-  border-radius: 30px;
   color: white;
   text-decoration: none;
-  font-size: 13px;
+  padding: 10px 18px;
+  border-radius: 30px;
+  font-size: 14px;
+  transition: 0.3s;
 }
 
 .btn-add:hover {
   box-shadow: 0 10px 25px rgba(124,58,237,0.4);
+  color: white;
+}
+
+/* EMPTY */
+.empty-box {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+  color: #94a3b8;
 }
 
 /* CARD */
 .snippet-card {
-  position: relative;
-  padding: 16px;
-  border-radius: 14px;
+  height: 180px;
+
   background: rgba(255,255,255,0.03);
-  backdrop-filter: blur(12px);
+
   border: 1px solid rgba(255,255,255,0.08);
-  transition: 0.3s;
+
+  border-radius: 18px;
+
+  padding: 18px;
+
+  backdrop-filter: blur(10px);
+
+  transition: 0.3s ease;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  position: relative;
+
+  overflow: hidden;
 }
 
 .snippet-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(99,102,241,0.2);
+  border-color: #7c3aed;
+  box-shadow: 0 20px 40px rgba(124,58,237,0.2);
 }
 
-/* HEADER */
-.snippet-header {
+/* CARD TOP */
+.snippet-top {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  align-items: center;
 }
 
-.snippet-title {
-  color: #a78bfa;
-  font-size: 14px;
+/* FILE ICON */
+.file-icon {
+  font-size: 28px;
+}
+
+/* ACTIONS */
+.card-actions {
+  display: flex;
+  gap: 8px;
 }
 
 /* COPY BUTTON */
 .copy-btn {
-  background: rgba(255,255,255,0.05);
+  width: 34px;
+  height: 34px;
+
   border: none;
+
+  border-radius: 10px;
+
+  background: rgba(255,255,255,0.05);
+
   color: #cbd5f5;
-  padding: 4px 10px;
-  border-radius: 8px;
+
   cursor: pointer;
+
+  transition: 0.2s;
 }
 
-/* CODE BOX */
-.code-box {
-  background: #020617;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 12px;
-  max-height: 160px;
-  overflow: auto;
+.copy-btn:hover {
+  background: #6366f1;
+  color: white;
+}
+
+/* DELETE BUTTON */
+.delete-btn {
+  width: 34px;
+  height: 34px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: rgba(239,68,68,0.08);
+
+  color: #ef4444;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.delete-btn:hover {
+  background: #ef4444;
+  color: white;
+}
+
+/* TITLE */
+.snippet-title {
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 20px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* OPEN LINK */
+.snippet-open {
+  text-decoration: none;
+  color: inherit;
 }
 
 /* FOOTER */
-.actions {
+.snippet-footer {
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* MODAL */
+.delete-modal {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0,0,0,0.65);
+
+  display: none;
+
+  align-items: center;
+  justify-content: center;
+
+  z-index: 9999;
+
+  backdrop-filter: blur(6px);
+}
+
+.delete-modal.active {
   display: flex;
-  justify-content: space-between;
-  margin-top: 12px;
 }
 
-.snippet-tag {
-  font-size: 11px;
+/* MODAL BOX */
+.delete-modal-box {
+  width: 360px;
+
+  background: #0f172a;
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  border-radius: 18px;
+
+  padding: 28px;
+
+  text-align: center;
+
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+/* MODAL TEXT */
+.delete-modal-box h5 {
+  color: white;
+  margin-bottom: 10px;
+}
+
+.delete-modal-box p {
   color: #94a3b8;
+  font-size: 14px;
 }
 
-.btn-delete {
-  font-size: 11px;
-  padding: 4px 10px;
-  border-radius: 8px;
-  background: rgba(239,68,68,0.1);
-  color: #ef4444;
+/* MODAL ACTIONS */
+.delete-actions {
+  margin-top: 24px;
+
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* CANCEL */
+.cancel-btn {
+  border: none;
+
+  background: rgba(255,255,255,0.05);
+
+  color: white;
+
+  padding: 10px 18px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+}
+
+/* CONFIRM */
+.confirm-delete-btn {
+  background: #ef4444;
+
+  color: white;
+
   text-decoration: none;
+
+  padding: 10px 18px;
+
+  border-radius: 10px;
+
+  transition: 0.2s;
+}
+
+.confirm-delete-btn:hover {
+  background: #dc2626;
+  color: white;
 }
 </style>
 
 <div class="dashboard-container">
 
-  <!-- TOP -->
+  <!-- TOPBAR -->
   <div class="topbar">
-    <h5>Your Snippets</h5>
-    <a href="/code/add" class="btn-add">+ Add</a>
+
+    <h4>Your Snippets</h4>
+
+    <a href="/code/add" class="btn-add">
+      + Add Snippet
+    </a>
+
   </div>
 
+  <!-- EMPTY -->
   <% if (snippets.length === 0) { %>
-    <div class="alert alert-dark">No snippets yet</div>
+
+    <div class="empty-box">
+      No snippets yet
+    </div>
+
   <% } %>
 
   <!-- GRID -->
@@ -133,35 +302,61 @@ html, body {
 
     <% snippets.forEach(function(s) { %>
 
-      <div class="col-md-4">
+      <div class="col-md-3">
 
         <div class="snippet-card">
 
-          <!-- HEADER -->
-          <div class="snippet-header">
-            <span class="snippet-title"><%= s.title %></span>
+          <!-- TOP -->
+          <div class="snippet-top">
 
-            <button class="copy-btn">⧉</button>
+            <!-- OPEN -->
+            <a href="/code/edit/<%= s.id %>" class="snippet-open">
+
+              <span class="file-icon">
+                📄
+              </span>
+
+            </a>
+
+            <!-- ACTIONS -->
+            <div class="card-actions">
+
+              <!-- COPY -->
+              <button class="copy-btn">
+                ⧉
+              </button>
+
+              <!-- DELETE -->
+              <button 
+                class="delete-btn open-delete-modal"
+                data-id="<%= s.id %>">
+                ✕
+              </button>
+
+            </div>
+
           </div>
 
-          <!-- CODE -->
-          <div class="code-box">
-            <pre><code>
-<%= s.code.replace(/</g, "&lt;").replace(/>/g, "&gt;") %>
-            </code></pre>
-          </div>
+          <!-- BODY -->
+          <a href="/code/edit/<%= s.id %>" class="snippet-open">
 
-          <!-- HIDDEN RAW CODE (SAFE) -->
-          <textarea class="code-data d-none"><%= s.code %></textarea>
+            <div class="snippet-body">
+
+              <h6 class="snippet-title">
+                <%= s.title %>
+              </h6>
+
+            </div>
+
+          </a>
 
           <!-- FOOTER -->
-          <div class="actions">
-            <span class="snippet-tag">Snippet</span>
-
-            <a href="/code/delete/<%= s.id %>" class="btn-delete">
-              Delete
-            </a>
+          <div class="snippet-footer">
+            Click card to edit snippet
           </div>
+
+          <!-- HIDDEN CODE -->
+          <textarea class="code-data d-none"><%= s.code %></textarea>
 
         </div>
 
@@ -173,25 +368,103 @@ html, body {
 
 </div>
 
+<!-- DELETE MODAL -->
+<div class="delete-modal" id="deleteModal">
+
+  <div class="delete-modal-box">
+
+    <h5>Delete Snippet?</h5>
+
+    <p>
+      Are you sure you want to delete this snippet?
+    </p>
+
+    <div class="delete-actions">
+
+      <button class="cancel-btn" id="cancelDelete">
+        Cancel
+      </button>
+
+      <a href="#" class="confirm-delete-btn" id="confirmDelete">
+        Delete
+      </a>
+
+    </div>
+
+  </div>
+
+</div>
+
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
+  // COPY FUNCTION
   document.querySelectorAll(".copy-btn").forEach(btn => {
 
-    btn.addEventListener("click", function () {
+    btn.addEventListener("click", function (e) {
+
+      e.preventDefault();
+      e.stopPropagation();
 
       const card = this.closest(".snippet-card");
+
       const code = card.querySelector(".code-data").value;
 
       navigator.clipboard.writeText(code).then(() => {
-        this.innerText = "Copied";
+
+        this.innerText = "✔";
 
         setTimeout(() => {
+
           this.innerText = "⧉";
+
         }, 1200);
+
       });
 
     });
+
+  });
+
+  // DELETE MODAL
+  const modal = document.getElementById("deleteModal");
+
+  const confirmDelete = document.getElementById("confirmDelete");
+
+  const cancelDelete = document.getElementById("cancelDelete");
+
+  document.querySelectorAll(".open-delete-modal").forEach(btn => {
+
+    btn.addEventListener("click", function (e) {
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      const id = this.dataset.id;
+
+      confirmDelete.href = `/code/delete/${id}`;
+
+      modal.classList.add("active");
+
+    });
+
+  });
+
+  // CANCEL
+  cancelDelete.addEventListener("click", () => {
+
+    modal.classList.remove("active");
+
+  });
+
+  // OUTSIDE CLICK
+  modal.addEventListener("click", (e) => {
+
+    if (e.target === modal) {
+
+      modal.classList.remove("active");
+
+    }
 
   });
 

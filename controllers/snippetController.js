@@ -26,3 +26,32 @@ exports.deleteSnippet = (req, res) => {
     res.redirect("/code/dashboard");
   });
 };
+
+exports.showEdit = (req, res) => {
+
+  snippetModel.getSnippetById(req.params.id, (err, result) => {
+
+    res.render("editSnippet", {
+      snippet: result[0]
+    });
+
+  });
+
+};
+
+exports.updateSnippet = (req, res) => {
+
+  const { title, code } = req.body;
+
+  snippetModel.updateSnippet(
+    req.params.id,
+    title,
+    code,
+    () => {
+
+      res.redirect("/code/dashboard");
+
+    }
+  );
+
+};
