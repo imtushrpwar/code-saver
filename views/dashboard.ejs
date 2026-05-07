@@ -1,0 +1,201 @@
+<%- include("partials/header") %>
+
+<style>
+/* GLOBAL */
+html, body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at top, #0f0c29, #050409);
+  color: #e2e8f0;
+  font-family: "Inter", sans-serif;
+  min-height: 100vh;
+}
+
+/* WRAPPER */
+.dashboard-container {
+  padding: 120px 8% 60px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* TOPBAR */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.topbar h5 {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* ADD BUTTON */
+.btn-add {
+  background: linear-gradient(135deg, #6366f1, #7c3aed);
+  padding: 8px 18px;
+  border-radius: 30px;
+  color: white;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.btn-add:hover {
+  box-shadow: 0 10px 25px rgba(124,58,237,0.4);
+}
+
+/* CARD */
+.snippet-card {
+  position: relative;
+  padding: 16px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: 0.3s;
+}
+
+.snippet-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(99,102,241,0.2);
+}
+
+/* HEADER */
+.snippet-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.snippet-title {
+  color: #a78bfa;
+  font-size: 14px;
+}
+
+/* COPY BUTTON */
+.copy-btn {
+  background: rgba(255,255,255,0.05);
+  border: none;
+  color: #cbd5f5;
+  padding: 4px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* CODE BOX */
+.code-box {
+  background: #020617;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  max-height: 160px;
+  overflow: auto;
+}
+
+/* FOOTER */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.snippet-tag {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.btn-delete {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: rgba(239,68,68,0.1);
+  color: #ef4444;
+  text-decoration: none;
+}
+</style>
+
+<div class="dashboard-container">
+
+  <!-- TOP -->
+  <div class="topbar">
+    <h5>Your Snippets</h5>
+    <a href="/code/add" class="btn-add">+ Add</a>
+  </div>
+
+  <% if (snippets.length === 0) { %>
+    <div class="alert alert-dark">No snippets yet</div>
+  <% } %>
+
+  <!-- GRID -->
+  <div class="row g-4">
+
+    <% snippets.forEach(function(s) { %>
+
+      <div class="col-md-4">
+
+        <div class="snippet-card">
+
+          <!-- HEADER -->
+          <div class="snippet-header">
+            <span class="snippet-title"><%= s.title %></span>
+
+            <button class="copy-btn">⧉</button>
+          </div>
+
+          <!-- CODE -->
+          <div class="code-box">
+            <pre><code>
+<%= s.code.replace(/</g, "&lt;").replace(/>/g, "&gt;") %>
+            </code></pre>
+          </div>
+
+          <!-- HIDDEN RAW CODE (SAFE) -->
+          <textarea class="code-data d-none"><%= s.code %></textarea>
+
+          <!-- FOOTER -->
+          <div class="actions">
+            <span class="snippet-tag">Snippet</span>
+
+            <a href="/code/delete/<%= s.id %>" class="btn-delete">
+              Delete
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+
+    <% }) %>
+
+  </div>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  document.querySelectorAll(".copy-btn").forEach(btn => {
+
+    btn.addEventListener("click", function () {
+
+      const card = this.closest(".snippet-card");
+      const code = card.querySelector(".code-data").value;
+
+      navigator.clipboard.writeText(code).then(() => {
+        this.innerText = "Copied";
+
+        setTimeout(() => {
+          this.innerText = "⧉";
+        }, 1200);
+      });
+
+    });
+
+  });
+
+});
+</script>
+
+<%- include("partials/footer") %>

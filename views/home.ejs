@@ -1,0 +1,192 @@
+<%- include("partials/header") %>
+
+<style>
+body {
+  margin: 0;
+  background: black;
+}
+
+/* FULL HERO */
+.hero {
+  width: 100%;
+  height: 100vh;
+    
+  display: flex;
+  align-items: center;
+
+  /* FULL BG IMAGE */
+  background:
+    linear-gradient(rgba(5,5,10,0.6), rgba(5,5,10,0.9)),
+    url('/images/banner.jpg') no-repeat center center/cover;
+
+  padding: 0 8%;
+}
+
+/* LEFT TEXT */
+.hero-content {
+  max-width: 600px;
+}
+
+/* TEXT STYLE */
+.hero h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+}
+
+.hero span {
+  color: #7c3aed;
+}
+
+.hero p {
+  color: #9ca3af;
+  margin-top: 15px;
+}
+
+/* BUTTON */
+.btn-main {
+  background: linear-gradient(135deg, #6366f1, #3b82f6);
+  border: none;
+  padding: 12px 30px;
+  border-radius: 30px;
+  color: white;
+  font-weight: 500;
+  margin-top: 20px;
+}
+
+
+
+/* SECTION BACKGROUND */
+.features-section {
+  background: #050409;
+  padding: 80px 0;
+}
+
+/* CARD */
+.feature-card {
+  position: relative;
+  padding: 30px 20px;
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  color: white;
+  transition: all 0.3s ease;
+}
+
+/* GLOW BORDER EFFECT */
+.feature-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(135deg, #6366f1, #7c3aed);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* HOVER EFFECT */
+.feature-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(99,102,241,0.2);
+}
+
+/* ICON */
+.feature-icon {
+  font-size: 28px;
+  margin-bottom: 15px;
+
+  background: linear-gradient(135deg, #6366f1, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* TITLE */
+.feature-card h5 {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* TEXT */
+.feature-card p {
+  color: #9ca3af;
+  font-size: 14px;
+}
+</style>
+
+<!-- HERO -->
+<div class="hero">
+
+  <div class="hero-content">
+
+    <h1>
+      Save & Manage <br>
+      <span>Code</span> Effortlessly
+    </h1>
+
+    <p>
+      A clean and minimal platform to store your code snippets securely and access them anytime.
+    </p>
+
+    <% if (!user) { %>
+      <a href="/login" class="btn btn-main">Get Started →</a>
+    <% } else { %>
+      <a href="/code/dashboard" class="btn btn-success">Go to Dashboard</a>
+    <% } %>
+
+  </div>
+
+</div>
+
+<!-- FEATURES -->
+<div class="features-section">
+
+  <div class="container">
+
+    <div class="row text-center g-4">
+
+      <div class="col-md-3">
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h5>Secure Storage</h5>
+          <p>Your snippets are safe and protected.</p>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h5>Quick Access</h5>
+          <p>Access your code instantly anytime.</p>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="feature-card">
+          <div class="feature-icon">☁️</div>
+          <h5>Cloud Sync</h5>
+          <p>Available everywhere, on any device.</p>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="feature-card">
+          <div class="feature-icon">💻</div>
+          <h5>Developer First</h5>
+          <p>Built specifically for developers.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<%- include("partials/footer") %>

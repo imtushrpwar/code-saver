@@ -1,0 +1,119 @@
+<%- include("partials/header") %>
+
+<style>
+/* BACKGROUND */
+body {
+  background: radial-gradient(circle at top, #0f0c29, #050409);
+  color: white;
+  margin: 0;
+}
+
+/* CENTER WRAPPER */
+.auth-wrapper {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CARD */
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 30px;
+
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+/* TITLE */
+.auth-card h4 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+/* INPUT */
+.form-control {
+  background: #0b0f19;
+  border: 1px solid #1f2937;
+  color: white;
+}
+
+.form-control::placeholder {
+  color: #6b7280;
+}
+
+.form-control:focus {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 1px #7c3aed;
+  background: #0b0f19;
+  color: white;
+}
+
+/* BUTTON */
+.btn-main {
+  background: linear-gradient(135deg, #6366f1, #7c3aed);
+  border: none;
+  color: white;
+  padding: 10px;
+  border-radius: 30px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.btn-main:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(124,58,237,0.4);
+}
+
+/* LINK */
+.auth-link {
+  color: #a78bfa;
+  text-decoration: none;
+}
+
+.auth-link:hover {
+  text-decoration: underline;
+}
+</style>
+
+<div class="auth-wrapper">
+
+  <div class="auth-card">
+
+    <h4>Create Account</h4>
+
+    <form method="POST" action="/register">
+
+      <div class="mb-3">
+        <input name="username" class="form-control" placeholder="Username" required />
+      </div>
+
+      <div class="mb-3">
+        <input type="email" name="email" class="form-control" placeholder="Email" required />
+      </div>
+
+      <div class="mb-3">
+        <input type="password" name="password" class="form-control" placeholder="Password" required />
+      </div>
+
+      <button class="btn-main w-100">Register</button>
+
+    </form>
+
+    <p class="mt-3 text-center">
+      <a href="/login" class="auth-link">Already have an account? Login</a>
+    </p>
+
+  </div>
+
+</div>
+
+<%- include("partials/footer") %>

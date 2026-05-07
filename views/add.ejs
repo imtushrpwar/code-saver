@@ -1,0 +1,173 @@
+<%- include("partials/header") %>
+
+<style>
+/* GLOBAL */
+html, body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at top, #0f0c29, #050409);
+  color: #e2e8f0;
+  font-family: "Inter", sans-serif;
+}
+
+/* MAIN WRAPPER */
+.editor-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 120px 20px 60px;
+}
+
+/* SECTION TITLE */
+.section-label {
+  font-size: 12px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+
+/* TITLE INPUT */
+.title-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #334155;
+  color: white;
+  font-size: 26px;
+  padding: 8px 0;
+}
+
+.title-input:focus {
+  outline: none;
+  border-color: #7c3aed;
+}
+
+/* EDITOR BOX */
+.editor-box {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #1f2937;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+/* HEADER BAR (like VS Code) */
+.editor-header {
+  background: #020617;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #94a3b8;
+  border-bottom: 1px solid #1f2937;
+}
+
+/* MONACO WRAPPER */
+#editor {
+  height: 450px;
+}
+
+/* FOOTER ACTIONS */
+.editor-footer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* BUTTON */
+.btn-save {
+  background: linear-gradient(135deg, #6366f1, #7c3aed);
+  border: none;
+  padding: 10px 22px;
+  border-radius: 25px;
+  color: white;
+  font-weight: 500;
+}
+
+.btn-save:hover {
+  box-shadow: 0 10px 25px rgba(124,58,237,0.4);
+}
+
+/* DISCARD */
+.btn-discard {
+  color: #94a3b8;
+  text-decoration: none;
+}
+</style>
+
+<div class="editor-container">
+
+  <form method="POST" action="/code/add">
+
+    <!-- TITLE -->
+    <div class="mb-4">
+      <div class="section-label">Title</div>
+      <input name="title" class="title-input" placeholder="My New Component..." required />
+    </div>
+
+    <!-- EDITOR -->
+    <div class="mb-4">
+      <div class="section-label">Source Code</div>
+
+      <div class="editor-box">
+        <div class="editor-header">main.js</div>
+        <div id="editor"></div>
+      </div>
+
+      <!-- hidden input -->
+      <input type="hidden" name="code" id="codeInput">
+    </div>
+
+    <!-- FOOTER -->
+    <div class="editor-footer">
+      <span class="text-muted small">Ready to deploy</span>
+
+      <div>
+        <a href="/code/dashboard" class="btn-discard me-3">Discard</a>
+        <button class="btn-save">Save Snippet</button>
+      </div>
+    </div>
+
+  </form>
+
+</div>
+
+<!-- MONACO -->
+<script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs/loader.js"></script>
+
+<script>
+let editor;
+
+require.config({
+  paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs' }
+});
+
+require(['vs/editor/editor.main'], function () {
+
+  editor = monaco.editor.create(document.getElementById('editor'), {
+    value: "// Write or paste your code here...\n",
+    language: 'javascript',
+    theme: 'vs-dark',
+    fontSize: 14,
+    minimap: { enabled: false },
+    automaticLayout: true,
+    scrollBeyondLastLine: false,
+
+    // disable suggestions
+    quickSuggestions: false,
+    suggestOnTriggerCharacters: false,
+    acceptSuggestionOnEnter: "off",
+    tabCompletion: "off",
+    wordBasedSuggestions: false,
+
+    hover: { enabled: false },
+    parameterHints: { enabled: false }
+  });
+
+});
+
+// save code
+document.querySelector("form").addEventListener("submit", function () {
+  document.getElementById("codeInput").value = editor.getValue();
+});
+</script>
+
+<%- include("partials/footer") %>
